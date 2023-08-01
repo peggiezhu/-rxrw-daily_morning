@@ -5,6 +5,7 @@ from wechatpy.client.api import WeChatMessage, WeChatTemplate
 import requests
 import os
 import random
+import requests
 
 today = datetime.now()
 start_date = os.environ['START_DATE']
@@ -19,19 +20,15 @@ template_id = os.environ["TEMPLATE_ID"]
 
 
 def get_weather():
-  url = "https://eolink.o.apispace.com/34324/air/v001/aqi"
-
-payload = {"areacode" : "101190403","lonlat" : "116.407526,39.904030"}
-
-headers = {
+  url = "https://eolink.o.apispace.com/34324/air/v001/aqi?areacode=101190403&lonlat=116.407526,39.904030"
+  headers = {
     "X-APISpace-Token":"9e1o3xkw5m6fiq2hzlqh8lbe799k36yf",
-    "Authorization-Type":"apikey"
-}
+    "Authorization":"apikey"
+  }
+  res = requests.get(url, headers=headers).json()
 
-res=requests.request("GET", url, params=payload, headers=headers).json()
-
-  //url = "http://autodev.openspeech.cn/csp/api/v2.1/weather?openId=aiuicus&clientType=android&sign=android&city=" + city
-  //res = requests.get(url).json()
+  #url = "http://autodev.openspeech.cn/csp/api/v2.1/weather?openId=aiuicus&clientType=android&sign=android&city=" + city
+  #res = requests.get(url).json()
   weather = res['data']['list'][0]
   return weather['weather'], math.floor(weather['temp'])
 

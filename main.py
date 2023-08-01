@@ -20,17 +20,16 @@ template_id = os.environ["TEMPLATE_ID"]
 
 
 def get_weather():
-  url = "https://eolink.o.apispace.com/34324/air/v001/aqi?areacode=101190403&lonlat=116.407526,39.904030"
+  url = "https://eolink.o.apispace.com/456456/weather/v001/now"
+  payload = {"areacode" : "101190403","lonlat" : "116.407526,39.904030"}
   headers = {
     "X-APISpace-Token":"9e1o3xkw5m6fiq2hzlqh8lbe799k36yf",
     "Authorization":"apikey"
   }
   res = requests.get(url, headers=headers).json()
 
-  #url = "http://autodev.openspeech.cn/csp/api/v2.1/weather?openId=aiuicus&clientType=android&sign=android&city=" + city
-  #res = requests.get(url).json()
-  weather = res['data']['list'][0]
-  return weather['weather'], math.floor(weather['temp'])
+  weather = res['result']['realtime']
+  return weather['text'], math.floor(weather['temp'])
 
 def get_count():
   delta = today - datetime.strptime(start_date, "%Y-%m-%d")

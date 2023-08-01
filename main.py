@@ -24,10 +24,9 @@ def get_weather():
   payload = {"areacode" : "101190403","lonlat" : "116.407526,39.904030"}
   headers = {
     "X-APISpace-Token":"9e1o3xkw5m6fiq2hzlqh8lbe799k36yf",
-    "Authorization":"apikey"
+    "Authorization-Type":"apikey"
   }
-  res = requests.get(url, params=payload, headers=headers).json()
-
+  res = requests.request("GET", url, params=payload, headers=headers).json()
   weather = res['result']['realtime']
   return weather['text'], math.floor(weather['temp'])
 

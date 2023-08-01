@@ -26,7 +26,7 @@ def get_weather():
     "X-APISpace-Token":"9e1o3xkw5m6fiq2hzlqh8lbe799k36yf",
     "Authorization":"apikey"
   }
-  res = requests.get(url, headers=headers).json()
+  res = requests.get(url, params=payload, headers=headers).json()
 
   weather = res['result']['realtime']
   return weather['text'], math.floor(weather['temp'])
